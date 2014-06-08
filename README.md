@@ -28,3 +28,8 @@ And then run it:
 
     $ cobra euclid.c
     12
+
+# TODOs
+
+* Make assignment act like an expression.
+* Add a type checker.
