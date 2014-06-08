@@ -29,7 +29,11 @@ class Continue(Exception):
     "Raised when an alternative parser should be skipped."
 
 
-class UnexpectedToken(Exception):
+class ParserError(Exception):
+    pass
+
+
+class UnexpectedToken(ParserError):
     "Raised when an unexpected token was encountered."
 
 

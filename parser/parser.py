@@ -97,8 +97,13 @@ class Parser(StandardParser):
         return binary(primary(), 0)
 
     def parse_if(self):
-        kind = globals()["N" + self.consume(TKEYWORD).upper()]
+        kind = self.consume(TKEYWORD)
         cond = self.parse_paren_expression()
+
+        if kind == "else":
+            kind = NELSE
+        else:
+            kind = NELIF
 
         if self.isa(TOPERATOR, ";"):
             return (NIF, cond)

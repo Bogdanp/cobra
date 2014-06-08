@@ -3,8 +3,10 @@
 """
 
 import sys
-import lexer
-import parser
+
+from codegen import Codegen
+from lexer import lex
+from parser import Parser, ParserError
 
 
 def main(args):
@@ -20,17 +22,19 @@ def main(args):
         sys.stderr.write("error: cannot open '{}'\n".format(filename))
         return 1
 
-    success, tokens = lexer.lex(code)
+    success, tokens = lex(code)
 
     if not success:
         sys.stderr.write("error: " + tokens)
         return 1
 
-    nodes = parser.Parser(tokens).parse()
-
-    for node in nodes:
-        if node is not None:
-            parser.print_tree(node)
+    try:
+        codegen = Codegen(Parser(tokens))
+        module = codegen.gen_module(main=True)
+        exec compile(module, filename, "exec") in globals()
+    except ParserError as e:
+        sys.stderr.write("error: {}\n".format(e))
+        return 1
 
     return 0
 
