@@ -53,7 +53,7 @@ def precedence(op):
 def lex(code):
     """Given an arbitrary piece of code, this returns a tuple containing
     a boolean value representing whether or not lexical analysis succeeded and
-    a list of token type and token value strings."""
+    a list of Tokens."""
 
     types = ("char", "int", "float", "void",)
     keywords = ("if", "else if", "else", "for", "while", "return", "const",)
