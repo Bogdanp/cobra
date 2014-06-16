@@ -86,8 +86,9 @@ class Parser(StandardParser):
             while self.isin(TOPERATOR, BINARY_OPERATORS) and precedence(self.value) >= mp:
                 op, e2 = self.consume(TOPERATOR), primary()
 
-                # All binary operators are assumed to be left-associative.
-                while self.isa(TOPERATOR) and precedence(self.value) >= precedence(op):
+                while self.isa(TOPERATOR) and \
+                    ((precedence(self.value) > precedence(op)) or
+                     (rassoc(op) and precedence(self.value) == precedence(op))):
                     e2 = binary(e2, precedence(self.value))
 
                 e1 = (NBINARY, op, e1, e2)

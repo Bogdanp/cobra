@@ -50,6 +50,12 @@ def precedence(op):
     return None
 
 
+def rassoc(op):
+    """Returns a boolean representing whether or not the given operator
+    is right-associative."""
+    return op in ("=", "+=", "-=", "*=", "/=")
+
+
 def lex(code):
     """Given an arbitrary piece of code, this returns a tuple containing
     a boolean value representing whether or not lexical analysis succeeded and
